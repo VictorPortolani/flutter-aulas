@@ -35,6 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
       contador++;
     });
   }
+  void diminuirValor() {
+    setState(() {
+      contador--;
+    });
+  }
   void resetar(){
     setState(() {
       contador = 0;
@@ -50,22 +55,60 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Prog. de Disp. Móveis 1'), 
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-              Text(
+        child: Text(
                 'Texto de Exemplo com Contador $contador',
               style: TextStyle(fontSize: 30)
               ),
-              SizedBox(height: 20),
-              ElevatedButton(onPressed: resetar
-              ), child: Text('Resetar'))
-            ],
-        )
         ),
-        floatingActionButton: FloatingActionButton(onPressed: acrescentarValor,
-        backgroundColor: Colors.blueAccent,
-        child: Icon(Icons.plus_one_sharp, color: Colors.white,),),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(onPressed: acrescentarValor,
+            backgroundColor: Colors.green,
+            child: Icon(Icons.plus_one_sharp, color: Colors.white,),),
+
+            SizedBox(width: 10,),
+            FloatingActionButton(onPressed: diminuirValor,
+            backgroundColor: Colors.redAccent,
+            child: Icon(Icons.remove, color: Colors.white,),),
+
+            SizedBox(width: 10,),
+            FloatingActionButton(onPressed: resetar,
+            backgroundColor: Colors.black,
+            child: Icon(Icons.dangerous, color: Colors.white,),),
+
+            SizedBox(width: 10,),
+            FloatingActionButton(onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Tela2()));
+            },
+              backgroundColor: Colors.blueAccent,
+              child: Icon(Icons.navigate_next, color: Colors.white,)),
+          ],
+        )
+        
     );
+  }
+}
+
+// TELA 2
+class Tela2 extends StatelessWidget{
+  const Tela2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Tela 2'),),
+      body: Center(
+        child: ElevatedButton.icon(
+          onPressed: (){
+          Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          label: Text('Voltar'),
+        )
+      ),
+   );
   }
 }
